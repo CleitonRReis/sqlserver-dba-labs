@@ -1,0 +1,25 @@
+USE PenneysRetailDB;
+
+CREATE TABLE Inventory.Products (
+    ProductID INT IDENTITY(1,1) PRIMARY KEY,
+    ProductSKU VARCHAR(20) NOT NULL,
+    ProductDescription NVARCHAR(200) NOT NULL,
+    RetailPrice DECIMAL(8,2) NOT NULL,
+    CostPrice DECIMAL(8,2) NOT NULL,
+    StockOnHand INT NOT NULL,
+    RedorderLevel INT NOT NULL
+);
+GO
+
+CREATE TABLE Inventory.Suppliers (
+    SupplierID INT IDENTITY(1,1) PRIMARY KEY,
+    SupplierCode VARCHAR(15) NOT NULL,
+    SupplierName NVARCHAR(100) NOT NULL,
+    CountryCode CHAR(2) NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1
+);
+GO
+
+SELECT TABLE_SCHEMA, TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'Inventory';
