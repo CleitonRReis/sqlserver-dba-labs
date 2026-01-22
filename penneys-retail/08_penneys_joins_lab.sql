@@ -37,3 +37,33 @@ SELECT
 FROM Inventory.Products p
 LEFT JOIN Inventory.Suppliers s ON p.SupplierID = s.SupplierID;
 GO
+
+SELECT
+    p.CostPrice,
+    p.ProductDescription,
+    s.SupplierName,
+    s.CountryCode
+FROM Inventory.Products p
+CROSS JOIN Inventory.Suppliers s;
+GO
+
+SELECT
+    p.ProductSKU + ' via ' + s.SupplierName AS TestScenario,
+    p.RetailPrice * 0.9 AS DiscountedPrice
+FROM Inventory.Products p
+CROSS JOIN Inventory.Suppliers s;
+GO
+
+ALTER TABLE Inventory.Suppliers ADD ParentSupplierID INT NULL;
+GO
+
+UPDATE Inventory.Suppliers SET ParentSupplierID = 1 WHERE SupplierID = 2;
+UPDATE Inventory.Suppliers SET ParentSupplierID = 1 WHERE SupplierID = 3;
+GO
+
+SELECT
+    child.SupplierName AS ChildSupplier,
+    parent.SupplierName AS ParentSupplier
+FROM Inventory.Suppliers child
+LEFT JOIN Inventory.Suppliers parent ON child.ParentSupplierID = parent.SupplierID;
+GO
