@@ -45,3 +45,30 @@ JOIN Inventory.Suppliers s ON p.SupplierID = s.SupplierID
 GROUP BY s.SupplierName
 ORDER BY TotalPotentialProfit DESC;
 GO
+
+
+-- ============================================
+-- HAVING Clause
+-- ============================================
+
+SELECT 
+    s.SupplierName,
+    COUNT(*) AS Products
+FROM Inventory.Products p
+JOIN Inventory.Suppliers s ON p.SupplierID = s.SupplierID
+GROUP BY s.SupplierName
+HAVING COUNT(*) > 2;
+GO
+
+SELECT
+    -- s.*,
+    -- p.*
+    s.SupplierName,
+    COUNT(*) AS Products,
+    AVG(p.RetailPrice) AS AvgPrice
+FROM Inventory.Products p 
+JOIN Inventory.Suppliers s ON p.SupplierID = s.SupplierID
+WHERE p.StockOnHand > 50
+GROUP BY s.SupplierName
+HAVING COUNT(*) > 1;
+GO
